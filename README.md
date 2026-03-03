@@ -99,3 +99,7 @@ task-manager/
 ![Task Manager Screenshot 1](TM_completed.png)
 
 ![Task Manager Screenshot 2](TM_completed2.png)
+
+## Acknowledgments
+
+This is an independent educational and portfolio project. This repository was built by me with assistance from AI coding tools for planning, implementation support, and documentation refinement.
