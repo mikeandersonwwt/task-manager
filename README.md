@@ -36,26 +36,39 @@ task-manager/
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js (v18 or higher)
 - npm
 
 ### Installation & Running
 
-1. **Start the Backend Server**
+1. **Install Backend Dependencies**
 
-   Open a terminal and run:
    ```bash
    cd backend
+   npm install
+   ```
+
+2. **Install Frontend Dependencies**
+
+   Open a NEW terminal window and run:
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+3. **Start the Backend Server**
+
+   In the backend terminal:
+   ```bash
    npm start
    ```
    
    The backend will run on http://localhost:5000
 
-2. **Start the Frontend Application**
+4. **Start the Frontend Application**
 
-   Open a NEW terminal window and run:
+   In the frontend terminal:
    ```bash
-   cd frontend
    npm start
    ```
    
@@ -63,23 +76,65 @@ task-manager/
 
 ## API Endpoints
 
-- `GET /api/tasks` - Get all tasks
-- `GET /api/tasks/:id` - Get a single task
-- `POST /api/tasks` - Create a new task
-- `PUT /api/tasks/:id` - Update a task
-- `DELETE /api/tasks/:id` - Delete a task
+All endpoints are relative to `http://localhost:5000`.
 
-## Task Data Model
-
-```javascript
+**Task object shape returned by all endpoints:**
+```json
 {
-  id: "unique-id",
-  title: "Task title",
-  description: "Task description",
-  completed: false,
-  createdAt: "2024-01-01T00:00:00.000Z"
+  "id": "unique-id",
+  "title": "Task title",
+  "description": "Task description",
+  "completed": false,
+  "createdAt": "2024-01-01T00:00:00.000Z"
 }
 ```
+
+---
+
+**`GET /api/tasks`** — Get all tasks
+```bash
+curl http://localhost:5000/api/tasks
+```
+Returns an array of task objects.
+
+---
+
+**`GET /api/tasks/:id`** — Get a single task
+```bash
+curl http://localhost:5000/api/tasks/<id>
+```
+
+---
+
+**`POST /api/tasks`** — Create a new task
+
+Required body fields: `title`. Optional: `description`.
+```bash
+curl -X POST http://localhost:5000/api/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Buy groceries", "description": "Milk, eggs, bread"}'
+```
+Returns the created task object with a generated `id` and `createdAt`.
+
+---
+
+**`PUT /api/tasks/:id`** — Update a task
+
+Accepts any combination of `title`, `description`, or `completed`.
+```bash
+curl -X PUT http://localhost:5000/api/tasks/<id> \
+  -H "Content-Type: application/json" \
+  -d '{"completed": true}'
+```
+Returns the updated task object.
+
+---
+
+**`DELETE /api/tasks/:id`** — Delete a task
+```bash
+curl -X DELETE http://localhost:5000/api/tasks/<id>
+```
+Returns a `204 No Content` response on success.
 
 ## Technologies Used
 
